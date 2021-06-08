@@ -1,0 +1,33 @@
+{
+  "name": "new_buddy",
+  "version": "2.0.0",
+  "description": "Keep yourself up-yto-date",
+  "main": "pane_electron.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anunay-Alok/News_Buddy.git"
+  },
+  "author": "Anunay&Tanmay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anunay-Alok/News_Buddy/issues"
+  },
+  "homepage": "https://github.com/Anunay-Alok/News_Buddy#readme",
+  "devDependencies": {
+    "bootstrap": "^5.0.1",
+    "electron": "^12.0.9",
+    "jquery": "^3.6.0"
+  },
+  "dependencies": {
+    "electron-reload": "^1.5.0",
+    "mongoose": "^5.12.10",
+    "popper.js": "^1.16.1",
+    "request": "^2.88.2"
+  }
+}
