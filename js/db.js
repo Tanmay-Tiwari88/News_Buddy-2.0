@@ -1,4 +1,6 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+
+
 
 const ArticleUrlSchema = new mongoose.Schema({
     url:{
@@ -25,6 +27,7 @@ const ArticleUrlSchema = new mongoose.Schema({
 
 
 
+
 const CreatDocument = async (AlbumName,urlin,titlein,sourcein,descriptionin) => {
     try{
      
@@ -36,6 +39,7 @@ const CreatDocument = async (AlbumName,urlin,titlein,sourcein,descriptionin) => 
             description : descriptionin
         })
         const result = await catArticle.save();
+        mongoose.connection.close();
 
     }catch(err){
         console.log(err);
@@ -46,6 +50,7 @@ const getDocument = async (AlbumName) => {
     try{
         const CatArticle = new mongoose.model(AlbumName,ArticleUrlSchema);
         const catArticle =await CatArticle.find({},{},{lean:true});
+        mongoose.connection.close();
         return catArticle;
     }catch(err){
         console.log(err);

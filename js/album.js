@@ -1,56 +1,20 @@
-const {
-  spawn
-} = require("child_process");
-const fs = require('fs');
-const db = require("../js/db");
 var x;
 
-
-function callScript(url, source) {
-  article = null;
-  const childPython = spawn('python', ['pythonScript/newsArticleScraper.py', url]);
-
-
-  childPython.stdout.on('data', (data) => {
-    console.log(`${data}`);
-    const datastring = data.toString();
-
-
-    const tp = eval(`(${datastring})`);
-    x.innerHTML += `<div class="card" id="new-card">
-            <div class="card-header">
-              Source : ${source}
-            </div>
-            <div class="card-body">
-              <h5 class="card-title"><b>${tp['title']} </b></h5>
-              <p>${tp['description']}</p>
-              <a href="#" class="btn btn-primary">Read More</a>
-              <a href="#" class="btn btn-primary">Un-Save</a>
-            </div>
-          </div>`
-
-
-  });
-
-  childPython.stderr.on('data', (data) => {
-    console.log(`${data}`);
-
-
-    console.error(`${data}`);
-  });
-
-  childPython.on('close', (code) => {
-    console.log(`child process exited code with ${code}`);
-  });
-
-
-
-
-}
 async function loadAlbum(AlbumName) {
 
+
+  mongoose.connect('mongodb://localhost:27017/Albums', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true
+    })
+    .then(() => console.log("connection succesful"))
+    .catch((err) => {
+      console.log(err)
+    });
+
   var articles = await db.getDocument(AlbumName);
-  console.log(articles)
+
   x = document.getElementById("news-cards");
 
   x.innerHTML = ``
@@ -61,7 +25,6 @@ async function loadAlbum(AlbumName) {
     var id_desc = "new-card-desc" + i;
     var rid_btn = "new-card-desc-R" + i;
     var lid_btn = "new-card-desc-L" + i;
-    console.log(articles[i]["url"], articles[i]["source"]);
     //callScript(articles[i]["url"],articles[i]["source"]);
     x.innerHTML += `<div class="card" id="new-card">
             <div class="card-header">
@@ -70,22 +33,18 @@ async function loadAlbum(AlbumName) {
             <div class="card-body">
               <h5 class="card-title"><b>${articles[i]["title"]} </b></h5>
               <p class="desc" id='${id_desc}'>${articles[i]['description']}</p>
-              <a href="#" class="btn btn-primary " id="${rid_btn}" onclick="showDesc('${id_desc}','${rid_btn}','${lid_btn}')" >Read More</a>
-              <a href="#" class="btn btn-primary rl-btn" id="${lid_btn}" onclick="hideDesc('${id_desc}','${rid_btn}','${lid_btn}')" >Read Less</a>
-              <a href="#" class="btn btn-primary">Un-Save</a>
+              <a href="#"  id="${rid_btn}" onclick="showDesc('${id_desc}','${rid_btn}','${lid_btn}')" ><i class="fa fa-arrow-down" aria-hidden="true"></i>
+              </a>
+              <a href="#" class=" rl-btn" id="${lid_btn}" onclick="hideDesc('${id_desc}','${rid_btn}','${lid_btn}')" ><i class="fa fa-arrow-up" aria-hidden="true"></i>
+              </a>
+              <a href="#" ><i class="fa fa-trash"></i></a>
             </div>
           </div>`
   }
 
-
-
-
-
-
-
-
-
 }
+
+
 
 function showDesc(id, rid_btn, lid_btn) {
   console.log(id);
@@ -98,11 +57,60 @@ function showDesc(id, rid_btn, lid_btn) {
 }
 
 function hideDesc(id, rid_btn, lid_btn) {
+
   console.log(id);
   var x = document.getElementById(id);
   document.getElementById(lid_btn).style.display = "none";
   document.getElementById(rid_btn).style.display = "inline";
 
   x.style.display = "none";
+
+}
+
+
+function showAlbums() {
+
+
+
+  var x = document.getElementById("news-cards");
+  
+
+
+  mongoose.connect('mongodb://localhost:27017/Albums', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true
+    })
+    .then(() => console.log("connection succesful"))
+    .catch((err) => {
+      console.log(err)
+    });
+
+
+     
+    
+     mongoose.connection.on('open', function (ref) {
+      console.log('Connected to mongo server.');
+      //trying to get collection names
+      mongoose.connection.db.listCollections().toArray(function (err, names) {
+          x.innerHTML = ``;
+          for (i in names) {
+              var name = names[i]["name"];
+
+              console.log(name);
+              x.innerHTML += `<div class="card">
+            
+              <div class="card-body">
+              <a href="#" onclick="loadAlbum('${name}')">
+                      ${names[i]['name']}</a>
+                      
+              </div>
+              </div>`
+          }
+
+      });
+      
+  })
+  
 
 }

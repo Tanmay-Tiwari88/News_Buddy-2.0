@@ -9,3 +9,5 @@ mongoose.connect('mongodb://localhost:27017/Albums', {
 .catch((err) => {
     console.log(err)
 });
+
+module.exports= exports=mongoose
