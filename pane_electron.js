@@ -82,7 +82,8 @@ app.on('ready', () => {
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      preload:path.join(__dirname,"/js/dbconnect.js")
       
     },
     transparent: true
@@ -100,7 +101,8 @@ app.on('ready', () => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      enableRemoteModule: true
+      enableRemoteModule: true,
+      preload:path.join(__dirname,"/js/dbconnect.js")
 
     }
   });

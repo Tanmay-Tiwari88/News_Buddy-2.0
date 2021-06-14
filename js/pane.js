@@ -4,7 +4,6 @@ const BrowserWindow = require('electron').remote.BrowserWindow;
 const {ipcRenderer} = require("electron");
 const db = require("../js/db");
 
-const mongoose = require('mongoose');
 
 
 
@@ -72,16 +71,6 @@ function search() {
 
 function saveArticle(url, title, source, description) {
 
-
-  mongoose.connect('mongodb://localhost:27017/Albums', {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true
-        })
-        .then(() => console.log("connection succesful"))
-        .catch((err) => {
-            console.log(err)
-        });
 
   db.CreatDocument("savedArticle", url, title, source, description);
   

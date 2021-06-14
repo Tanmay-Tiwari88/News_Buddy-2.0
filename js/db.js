@@ -39,7 +39,7 @@ const CreatDocument = async (AlbumName,urlin,titlein,sourcein,descriptionin) => 
             description : descriptionin
         })
         const result = await catArticle.save();
-        mongoose.connection.close();
+        
 
     }catch(err){
         console.log(err);
@@ -48,9 +48,11 @@ const CreatDocument = async (AlbumName,urlin,titlein,sourcein,descriptionin) => 
 
 const getDocument = async (AlbumName) => {
     try{
+
+        mongoose.pluralize(null);
         const CatArticle = new mongoose.model(AlbumName,ArticleUrlSchema);
         const catArticle =await CatArticle.find({},{},{lean:true});
-        mongoose.connection.close();
+    
         return catArticle;
     }catch(err){
         console.log(err);

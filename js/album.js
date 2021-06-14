@@ -1,17 +1,8 @@
+const mongoose = require("mongoose");
 var x;
 
 async function loadAlbum(AlbumName) {
 
-
-  mongoose.connect('mongodb://localhost:27017/Albums', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true
-    })
-    .then(() => console.log("connection succesful"))
-    .catch((err) => {
-      console.log(err)
-    });
 
   var articles = await db.getDocument(AlbumName);
 
@@ -71,46 +62,28 @@ function hideDesc(id, rid_btn, lid_btn) {
 function showAlbums() {
 
 
-
+  console.log("fuck");
   var x = document.getElementById("news-cards");
-  
 
 
-  mongoose.connect('mongodb://localhost:27017/Albums', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true
-    })
-    .then(() => console.log("connection succesful"))
-    .catch((err) => {
-      console.log(err)
-    });
 
+  mongoose.connection.db.listCollections().toArray(function (err, names) {
+    x.innerHTML = ``;
+    for (i in names) {
+      var name = names[i]["name"];
 
-     
-    
-     mongoose.connection.on('open', function (ref) {
-      console.log('Connected to mongo server.');
-      //trying to get collection names
-      mongoose.connection.db.listCollections().toArray(function (err, names) {
-          x.innerHTML = ``;
-          for (i in names) {
-              var name = names[i]["name"];
-
-              console.log(name);
-              x.innerHTML += `<div class="card">
+      console.log(name);
+      x.innerHTML += `<div class="card">
             
               <div class="card-body">
               <a href="#" onclick="loadAlbum('${name}')">
                       ${names[i]['name']}</a>
                       
               </div>
-              </div>`
-          }
-
-      });
-      
+             </div>`
+    }
   })
-  
+
+
 
 }
