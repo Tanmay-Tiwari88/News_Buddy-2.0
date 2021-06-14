@@ -90,10 +90,13 @@ app.on('ready', () => {
   });
   win.loadFile("./html/pane.html");
   win.setPosition(-widthx, 0);
+
   albumMenu = new BrowserWindow({
     height: 600,
     width: 400,
     show:false,
+    parent:win,
+    modal:true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,

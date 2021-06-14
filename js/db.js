@@ -30,7 +30,7 @@ const ArticleUrlSchema = new mongoose.Schema({
 
 const CreatDocument = async (AlbumName,urlin,titlein,sourcein,descriptionin) => {
     try{
-     
+        mongoose.pluralize(null);
         const CatArticle = new mongoose.model(AlbumName,ArticleUrlSchema);
         const catArticle = new CatArticle({
             url:urlin,
