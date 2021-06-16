@@ -59,11 +59,46 @@ const getDocument = async (AlbumName) => {
     }
 }
 
+const deletDocument = async (AlbumName,urlin) =>{
+    mongoose.pluralize(null);
+    const CatArticle = new mongoose.model(AlbumName,ArticleUrlSchema);
+    
+    const catArticle =await CatArticle.deleteOne({url: urlin},(err)=>{
+        if(err) console.log(err);
+        else console.log("Deletion Succesull");
+    });
+
+}
+
+const getCount =async (AlbumName) =>{
+
+    mongoose.pluralize(null);
+    const CatArticle = new mongoose.model(AlbumName,ArticleUrlSchema);
+    const catArticle =await CatArticle.countDocuments({},(err,result)=>{
+        if(err)
+        console.log(err);
+        else{
+            return result;
+        }
+
+    });
+    return catArticle;
 
 
-//getDocument();
+}
+
+const dropCollection= (AlbumName)=>{
+    mongoose.connection.db.dropCollection(AlbumName,(err)=>{
+        if(err)console.log(err);
+        else console.log("collection Deleted Succesfully");
+    })
+}
 
 module.exports = {
     CreatDocument,
-    getDocument 
+    getDocument,
+    deletDocument,
+    getCount,
+    dropCollection
 }
+

@@ -22,7 +22,7 @@ ipcRenderer.on('Send-Article-menu', (event, tp) => {
 
 
     
-        console.log('Connected to mongo server.');
+    
         //trying to get collection names
         mongoose.connection.db.listCollections().toArray(function (err, names) {
             menuGrp.innerHTML = '';
