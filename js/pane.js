@@ -7,7 +7,7 @@ const mongoose = require("mongoose")
 
 var x;
 var defaultkeyword = "Covid";
-var articles = {};
+var articles={};
 
 //Function too get todays date for default search 
 function getTodaysDate() {
@@ -31,6 +31,7 @@ async function loadCategotry(category = 'everything', country = '', keyword = de
     console.log(err)
   });
 
+  
   var x = document.getElementById("news-cards");
 
   x.innerHTML = ``
@@ -38,12 +39,13 @@ async function loadCategotry(category = 'everything', country = '', keyword = de
   for (i in tp) {
 
     var tps = JSON.stringify(tp);
-    
+    var news_card_id = "news_car" + i;
     var id_desc = "new-card-desc" + i;
     var rid_btn = "new-card-desc-R" + i;
     var lid_btn = "new-card-desc-L" + i;
+    articles[news_card_id] = tp[i];
 
-    x.innerHTML += `<div class="card">
+    x.innerHTML += `<div class="card" id="${news_card_id}">
             <div class="card-header">
               Source : ${tp[i]["source"]["name"]}
             </div>
@@ -54,8 +56,8 @@ async function loadCategotry(category = 'everything', country = '', keyword = de
               </a>
               <a href="#" class=" rl-btn" id="${lid_btn}" onclick="hideDesc('${id_desc}','${rid_btn}','${lid_btn}')" ><i class="fa fa-arrow-up" aria-hidden="true"></i>
               </a>
-              <a href="#"  onclick="saveArticle('${tp[i]["url"]}','${tp[i]["title"]}','${tp[i]["source"]["name"]}','${tp[i]["description"]}')"><i class="fa fa-bookmark" aria-hidden="true"></i></a>
-              <a href="#" class="Album-btn" onclick="sendArticle('${tp[i]["url"]}','${tp[i]["title"]}','${tp[i]["source"]["name"]}','${tp[i]["description"]}')"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+              <a href="#"  onclick="saveArticle('${news_card_id}')"><i class="fa fa-bookmark" aria-hidden="true"></i></a>
+              <a href="#" class="Album-btn" onclick="sendArticle('${news_card_id}')"><i class="fa fa-plus-circle" aria-hidden="true"></i>
               </a>
             </div>
           </div>`
@@ -77,31 +79,33 @@ function search() {
 async function loadAlbum(AlbumName) {
 
 
-  var articles = await db.getDocument(AlbumName);
+  var albumArticles = await db.getDocument(AlbumName);
 
   x = document.getElementById("news-cards");
 
   x.innerHTML = ``
 
 
-  for (i in articles) {
+  for (i in albumArticles) {
 
+    var news_card_id = "news_car" + i;
     var id_desc = "new-card-desc" + i;
     var rid_btn = "new-card-desc-R" + i;
     var lid_btn = "new-card-desc-L" + i;
-    //callScript(articles[i]["url"],articles[i]["source"]);
-    x.innerHTML += `<div class="card" id="new-card">
+    articles[news_card_id] = albumArticles[i];
+    
+    x.innerHTML += `<div class="card" id="${news_card_id}">
             <div class="card-header">
-              Source : ${articles[i]["source"]}
+              Source : ${albumArticles[i]["source"]}
             </div>
             <div class="card-body">
-              <h5 class="card-title"><b>${articles[i]["title"]} </b></h5>
-              <p class="desc" id='${id_desc}'>${articles[i]['description']}</p>
+              <h5 class="card-title"><b>${albumArticles[i]["title"]} </b></h5>
+              <p class="desc" id='${id_desc}'>${albumArticles[i]['description']}</p>
               <a href="#"  id="${rid_btn}" onclick="showDesc('${id_desc}','${rid_btn}','${lid_btn}')" ><i class="fa fa-arrow-down" aria-hidden="true"></i>
               </a>
               <a href="#" class=" rl-btn" id="${lid_btn}" onclick="hideDesc('${id_desc}','${rid_btn}','${lid_btn}')" ><i class="fa fa-arrow-up" aria-hidden="true"></i>
               </a>
-              <a href="#" ><i class="fa fa-trash" onclick="deleteArticle('${AlbumName}', '${articles[i]['url']}')"></i></a>
+              <a href="#" ><i class="fa fa-trash" onclick="deleteArticle('${AlbumName}', '${albumArticles[i]['url']}')"></i></a>
             </div>
           </div>`
   }
@@ -141,26 +145,19 @@ function showAlbums() {
 
 }
 
-function sendArticle(url, title, source, desc){
+function sendArticle(id){
 
   console.log('yo');
-  var tps ={
-    "url":url,
-    "title":title,
-    "source":source,
-    "desc":desc
-  };
-
-  ipcRenderer.send('Sending-Article',tps);
+  ipcRenderer.send('Sending-Article',articles[id]);
 
 }
 
 
 //function to save Article to savedArtice collection in database
-function saveArticle(url, title, source, description) {
+function saveArticle(id) {
 
 
-  db.CreatDocument("savedArticle", url, title, source, description);
+  db.CreatDocument("savedArticle", articles[id]["url"], articles[id]["title"], articles[id]["source"]["name"], articles[id]["description"]);
   
 }
 

@@ -16,7 +16,7 @@ ipcRenderer.on('Send-Article-menu', (event, tp) => {
 
     var url = tp['url'];
     var title = tp['title'];
-    var source = tp['source'];
+    var source = tp['source']['name'];
     var desc = tp['desc'];
     console.log(tp);
 

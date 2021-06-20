@@ -31,6 +31,7 @@ var movingout = true;
 ipcMain.on('Sending-Article',(event, tp)=>{
   albumMenu.show()
   albumMenu.webContents.send('Send-Article-menu', tp);
+  
 
 });
 
