@@ -6,7 +6,9 @@ const {
   webContents
 } = require("electron");
 
-const {ipcMain} = require('electron');
+const {
+  ipcMain
+} = require('electron');
 
 
 const path = require("path");
@@ -28,18 +30,21 @@ var slideout
 var movingin = false;
 var movingout = true;
 
-ipcMain.on('Sending-Article',(event, tp)=>{
+//recive article from pane to be saved and pass it to alum-menu
+ipcMain.on('Sending-Article', (event, tp) => {
   albumMenu.show()
   albumMenu.webContents.send('Send-Article-menu', tp);
-  
+
 
 });
 
-ipcMain.on('close-menu',(event,message)=>{
+
+//hides album menu after saving the article
+ipcMain.on('close-menu', (event, message) => {
   albumMenu.hide();
 });
 
-
+//function than move in the pane window in electron by increasing its x-cordinate 
 function movein() {
   temp += 10;
 
@@ -51,6 +56,8 @@ function movein() {
 
 }
 
+
+//function than move out the pane window in electron by decreasing its x-cordinate 
 function moveout() {
   temp -= 10;
 
@@ -72,7 +79,7 @@ app.on('ready', () => {
     height
   } = screen.getPrimaryDisplay().workArea;
 
-
+  //main window 
   win = new BrowserWindow({
     height: height,
     width: 500,
@@ -84,8 +91,8 @@ app.on('ready', () => {
       enableRemoteModule: true,
       nodeIntegration: true,
       contextIsolation: false,
-      preload:path.join(__dirname,"/js/dbconnect.js")
-      
+      preload: path.join(__dirname, "/js/dbconnect.js")
+
     },
     transparent: true
 
@@ -93,26 +100,28 @@ app.on('ready', () => {
   win.loadFile("./html/pane.html");
   win.setPosition(-widthx, 0);
 
+  // album menu window
   albumMenu = new BrowserWindow({
     height: 600,
     width: 400,
-    show:false,
-    parent:win,
-    modal:true,
+    show: false,
+    parent: win,
+    modal: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true,
-      preload:path.join(__dirname,"/js/dbconnect.js")
+      preload: path.join(__dirname, "/js/dbconnect.js")
 
     }
   });
   albumMenu.loadFile("./html/album-menu.html");
   albumMenu.setPosition(10, 10);
-  
 
+  // produce tray icon in icon trays
   tray = new Tray(path.join(__dirname, "images/newsbuddy.png"));
 
+  // moves in the window when u click the try icon
   tray.on("click", (events, bounds) => {
 
     if (!movingin && movingout) {
@@ -127,7 +136,7 @@ app.on('ready', () => {
   });
 
 
-
+  //moves out the window when we click somewhhere else on screen
   win.on("blur", () => {
 
     if (movingin || !movingout) {
@@ -142,4 +151,3 @@ app.on('ready', () => {
 
 
 });
-

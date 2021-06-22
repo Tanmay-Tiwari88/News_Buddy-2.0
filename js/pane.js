@@ -1,13 +1,16 @@
 const fetchApiResult = require('../js/Apicall');
 const path = require("path");
 const BrowserWindow = require('electron').remote.BrowserWindow;
-const {ipcRenderer} = require("electron");
+const {
+  ipcRenderer
+} = require("electron");
 const db = require("../js/db");
 const mongoose = require("mongoose")
 
+//global Variables in use
 var x;
 var defaultkeyword = "Covid";
-var articles={};
+var articles = {};
 
 //Function too get todays date for default search 
 function getTodaysDate() {
@@ -31,7 +34,7 @@ async function loadCategotry(category = 'everything', country = '', keyword = de
     console.log(err)
   });
 
-  
+
   var x = document.getElementById("news-cards");
 
   x.innerHTML = ``
@@ -93,7 +96,7 @@ async function loadAlbum(AlbumName) {
     var rid_btn = "new-card-desc-R" + i;
     var lid_btn = "new-card-desc-L" + i;
     articles[news_card_id] = albumArticles[i];
-    
+
     x.innerHTML += `<div class="card" id="${news_card_id}">
             <div class="card-header">
               Source : ${albumArticles[i]["source"]}
@@ -145,10 +148,10 @@ function showAlbums() {
 
 }
 
-function sendArticle(id){
+function sendArticle(id) {
 
   console.log('yo');
-  ipcRenderer.send('Sending-Article',articles[id]);
+  ipcRenderer.send('Sending-Article', articles[id]);
 
 }
 
@@ -158,21 +161,20 @@ function saveArticle(id) {
 
 
   db.CreatDocument("savedArticle", articles[id]["url"], articles[id]["title"], articles[id]["source"]["name"], articles[id]["description"]);
-  
+
 }
 
 //Function to delete Atricle from give collecction
-async function deleteArticle(AlbumName,url)
-{
-    db.deletDocument(AlbumName,url);
-    var artCount =await  db.getCount(AlbumName);
+async function deleteArticle(AlbumName, url) {
+  db.deletDocument(AlbumName, url);
+  var artCount = await db.getCount(AlbumName);
 
-    console.log(artCount);
-    //if number of article in Article is 0 we drop that Article
-    if(artCount == 0)
+  console.log(artCount);
+  //if number of article in Article is 0 we drop that Article
+  if (artCount == 0)
     db.dropCollection(AlbumName);
 
-    loadAlbum(AlbumName);
+  loadAlbum(AlbumName);
 }
 
 //function to show full description off News Article
@@ -199,5 +201,3 @@ function hideDesc(id, rid_btn, lid_btn) {
   x.style.display = "none";
 
 }
-
-
