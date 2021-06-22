@@ -10,3 +10,11 @@ ipcRenderer.on('show-them', (event, tp) => {
     console.log(tp);
 
 })
+
+filter-form.addEventListener("submit", function(e) {
+  e.preventDefault();
+  var data = new FormData(form);
+  for (const [name,value] of data) {
+    console.log(name,value)
+  }
+})
