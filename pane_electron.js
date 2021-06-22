@@ -25,6 +25,7 @@ let temp = -widthx;
 var loadInTimer;
 var loadoutTimer;
 var albumMenu;
+var filterWindow;
 var slidein;
 var slideout
 var movingin = false;
@@ -34,6 +35,14 @@ var movingout = true;
 ipcMain.on('Sending-Article', (event, tp) => {
   albumMenu.show()
   albumMenu.webContents.send('Send-Article-menu', tp);
+
+
+});
+
+//launch filterWindow
+ipcMain.on('launch-filterWindow', (event, tp) => {
+  filterWindow.show()
+  filterWindow.webContents.send('show them', tp);
 
 
 });
@@ -118,6 +127,25 @@ app.on('ready', () => {
   albumMenu.loadFile("./html/album-menu.html");
   albumMenu.setPosition(10, 10);
 
+
+  //window to apply filter
+  filterWindow = new BrowserWindow({
+    height: 600,
+    width: 400,
+    show: false,
+    parent: win,
+    modal: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
+    
+
+    }
+  });
+  filterWindow.loadFile("./html/filter.html");
+  filterWindow.setPosition(10, 10);
+
   // produce tray icon in icon trays
   tray = new Tray(path.join(__dirname, "images/newsbuddy.png"));
 
@@ -146,6 +174,15 @@ app.on('ready', () => {
       movingout = true;
       slideout = setInterval(() => moveout(), 4);
     }
+
+  });
+
+
+  albumMenu.on("blur", () => {
+    albumMenu.hide();
+  });
+  filterWindow.on("blur", () => {
+    filterWindow.hide();
 
   });
 

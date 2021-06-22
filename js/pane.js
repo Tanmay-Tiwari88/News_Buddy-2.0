@@ -25,7 +25,7 @@ function getTodaysDate() {
 
 
 //Function to make a api call all get artilce and load it on main page
-async function loadCategotry(category = 'everything', country = '', keyword = defaultkeyword, dateFrom = '', dateTo = '', sortBy = '', source = '') {
+async function loadCategotry(category = 'everything', country = '', keyword = defaultkeyword, dateFrom = getTodaysDate(), dateTo = '', sortBy = '', source = '') {
 
   var tp = await fetchApiResult(category, country, keyword, dateFrom, dateTo, sortBy, source).then(function (val) {
     return val;
@@ -148,10 +148,16 @@ function showAlbums() {
 
 }
 
+//Sends article to Album menu process
 function sendArticle(id) {
 
-  console.log('yo');
   ipcRenderer.send('Sending-Article', articles[id]);
+
+}
+
+function launchFilterWin(){
+
+  ipcRenderer.send('launch-filterWindow', "get filtering parameter");
 
 }
 
