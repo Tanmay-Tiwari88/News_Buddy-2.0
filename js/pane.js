@@ -121,7 +121,7 @@ async function loadAlbum(AlbumName) {
 function showAlbums() {
 
 
-  console.log("fuck");
+  
   var x = document.getElementById("news-cards");
 
 
@@ -160,6 +160,12 @@ function launchFilterWin(){
   ipcRenderer.send('launch-filterWindow', "get filtering parameter");
 
 }
+
+ipcRenderer.on("sending filter para",(event,paras)=>{
+  console.log(paras)
+  var kw = document.getElementById("search-text").value;
+  loadCategotry(paras["category"], paras["country"], kw, paras["dateFrom"], paras["to"],undefined, paras["source"]);
+})
 
 
 //function to save Article to savedArtice collection in database

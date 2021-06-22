@@ -53,6 +53,14 @@ ipcMain.on('close-menu', (event, message) => {
   albumMenu.hide();
 });
 
+
+ipcMain.on("sending-Parameters",(event,paras)=>{
+  filterWindow.hide()
+  console.log(paras);
+  win.webContents.send("sending filter para",JSON.parse(paras));
+})
+
+
 //function than move in the pane window in electron by increasing its x-cordinate 
 function movein() {
   temp += 10;
@@ -64,6 +72,7 @@ function movein() {
   }
 
 }
+
 
 
 //function than move out the pane window in electron by decreasing its x-cordinate 
@@ -114,8 +123,7 @@ app.on('ready', () => {
     height: 600,
     width: 400,
     show: false,
-    parent: win,
-    modal: true,
+    frame:false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -133,8 +141,7 @@ app.on('ready', () => {
     height: 600,
     width: 400,
     show: false,
-    parent: win,
-    modal: true,
+    frame:false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -161,21 +168,29 @@ app.on('ready', () => {
       slidein = setInterval(() => movein(), 4);
 
     }
-  });
 
-
-  //moves out the window when we click somewhhere else on screen
-  win.on("blur", () => {
-
-    if (movingin || !movingout) {
+    else {
       //console.log("sliding out");
       clearInterval(slidein);
       movingin = false;
       movingout = true;
       slideout = setInterval(() => moveout(), 4);
     }
-
   });
+
+
+  //moves out the window when we click somewhhere else on screen
+  // win.on("blur", () => {
+
+  //   if (movingin || !movingout) {
+  //     //console.log("sliding out");
+  //     clearInterval(slidein);
+  //     movingin = false;
+  //     movingout = true;
+  //     slideout = setInterval(() => moveout(), 4);
+  //   }
+
+  // });
 
 
   albumMenu.on("blur", () => {

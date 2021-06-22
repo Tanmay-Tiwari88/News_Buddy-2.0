@@ -29,23 +29,23 @@
     <div class="wrapper container" style="height: 100%;">
         <form id = 'filter-form'>
             <div class="form-group">
-                <label for="exampleFormControlInput1" >Source</label>
+                <label for="exampleFormControlInput1" ><b>Source</b></label>
                 <input type="text" class="form-control" id="src">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Country</label>
+                <label for="exampleFormControlInput1"><b>Country</b></label>
                 <input type="text" class="form-control" id="con">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlSelect1">Category</label>
+                <label for="exampleFormControlSelect1"><b>Category<b></b></label>
                 <select class="form-control" id="cat">
-                    <option>Top Headline</option>
-                    <option>Everything</option>
+                    <option>top-headlines</option>
+                    <option>everything</option>
 
                 </select>
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Sort-By</label>
+                <label for="exampleFormControlInput1"><b>Sort-By</b></label>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
                         value="option1" checked>
@@ -62,14 +62,14 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Date From</label>
+                <label for="exampleFormControlInput1"><b>Date From</b></label>
                 <input type="date" class="form-control" id="dateFrom">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Date To</label>
-                <input type="date" class="form-control" id="dateTO">
+                <label for="exampleFormControlInput1"><b>Date To</b></label>
+                <input type="date" class="form-control" id="dateTo">
             </div>
-            <button type="submit" class="btn btn-primary">Apply</button>
+            <button type="button" class="btn btn-primary" onclick="sendParameters()">Apply</button>
 
         </form>
 

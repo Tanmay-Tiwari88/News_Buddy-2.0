@@ -9,7 +9,7 @@ function fetchApiResult(category = 'everything', country = '', keyword = 'Covid'
         if (dateFrom != '') url += `from=${dateFrom}&`
         if (dateTo != '') url += `to=${dateTo}&`
         if (sortBy != '') url += `sortBy=${sortBy}&`
-        if (source != '') url += `source=${source}&`
+        if (source != '') url += `sources=${source}&`
         url += 'apiKey=64b11e57419f455da95bd52189b56246'
         console.log(url);
         request(url, (err, res, body) => {
