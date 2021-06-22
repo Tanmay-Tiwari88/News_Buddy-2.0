@@ -34,13 +34,16 @@ ipcRenderer.on('Send-Article-menu', (event, tp) => {
                 menuGrp.innerHTML += `<a href="#" class="list-group-item list-group-item-action" onclick="saveArticle('${name}','${url}','${title}','${source}','${desc}')">
           ${names[i]['name']}</a>`
             }
-            menuGrp.innerHTML += `<div class="input-group rounded">
+            menuGrp.innerHTML += 
+        `<div class="footer fixed-bottom" style="background-color: #141518; margin: 5 5 0 5; padding: 10px; position:fixed;">
+        <div class="input-group rounded">
         <input  class="form-control rounded" placeholder="Add to new album" id="newAlbum-name" />
-     <span class="btn input-group-text border-0 " id="search-addon" style="background-color: #141518" onclick="addnewalb('${url}','${title}','${source}','${desc}')">
-     <i class="fa fa-plus" aria-hidden="true"></i>
-    </span>
-    </div>
-    </div>`
+            <span class="btn input-group-text border-0 " id="search-addon" style="background-color: #141518" onclick="addnewalb('${url}','${title}','${source}','${desc}')">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </span>
+        </div>
+        </div>
+        </div>`
 
         });
     
