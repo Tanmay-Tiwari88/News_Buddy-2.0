@@ -56,7 +56,6 @@ ipcMain.on('close-menu', (event, message) => {
 
 ipcMain.on("sending-Parameters",(event,paras)=>{
   filterWindow.hide()
-  console.log(paras);
   win.webContents.send("sending filter para",JSON.parse(paras));
 })
 

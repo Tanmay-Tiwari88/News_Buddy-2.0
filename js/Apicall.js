@@ -3,6 +3,7 @@ const request = require('request');
 
 function fetchApiResult(category = 'everything', country = '', keyword = 'Covid', dateFrom = '', dateTo = '', sortBy = '', source = '') {
     return new Promise(function (resolve, reject) {
+
         var url = `https://newsapi.org/v2/${category}?`
         if (keyword != '') url += `q=${keyword}&`
         if (country != '') url += `country=${country}&`

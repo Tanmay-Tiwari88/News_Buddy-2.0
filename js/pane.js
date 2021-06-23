@@ -11,6 +11,7 @@ const mongoose = require("mongoose")
 var x;
 var defaultkeyword = "Covid";
 var articles = {};
+var curkw = defaultkeyword;
 
 //Function too get todays date for default search 
 function getTodaysDate() {
@@ -26,7 +27,6 @@ function getTodaysDate() {
 
 //Function to make a api call all get artilce and load it on main page
 async function loadCategotry(category = 'everything', country = '', keyword = defaultkeyword, dateFrom = getTodaysDate(), dateTo = '', sortBy = '', source = '') {
-
   var tp = await fetchApiResult(category, country, keyword, dateFrom, dateTo, sortBy, source).then(function (val) {
     return val;
 
@@ -72,8 +72,8 @@ async function loadCategotry(category = 'everything', country = '', keyword = de
 
 //Function to search a specific keyword and load it on main page
 function search() {
-  var kw = document.getElementById("search-text").value;
-  loadCategotry(undefined, undefined, kw, undefined, undefined, 'date', undefined);
+  curkw = document.getElementById("search-text").value;
+  loadCategotry(undefined, undefined, curkw, undefined, undefined, 'date', undefined);
 }
 
 
@@ -163,8 +163,7 @@ function launchFilterWin(){
 
 ipcRenderer.on("sending filter para",(event,paras)=>{
   console.log(paras)
-  var kw = document.getElementById("search-text").value;
-  loadCategotry(paras["category"], paras["country"], kw, paras["dateFrom"], paras["to"],undefined, paras["source"]);
+  loadCategotry(paras["category"], paras["country"], curkw, paras["dateFrom"], paras["to"],undefined, paras["source"]);
 })
 
 

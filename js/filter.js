@@ -7,25 +7,27 @@ const {
 var parameters;
 ipcRenderer.on('show-them', (event, tp) => {
 
-    console.log(tp);
+  console.log(tp);
 
 })
 
-function sendParameters()
-{
+function sendParameters() {
   var source = document.getElementById("src").value;
   var country = document.getElementById("con").value;
-  var  category = document.getElementById("cat").value;
+  var category = document.getElementById("cat").value;
   //var  sort-by= document.getElementById("sort");
   var dateFrom = document.getElementById("dateFrom").value;
   var dateTo = document.getElementById("dateTo").value;
-  
-   parameters = {
-    "source" : source,
-    "category" : category,
-    "country ": country,
-    "dateFrom" : dateFrom,
-    "dateTo" : dateTo
+
+  source = source.replace(" ", "-").toLowerCase();
+  country = country.toLowerCase();
+
+  parameters = {
+    "source": source,
+    "category": category,
+    "country": country,
+    "dateFrom": dateFrom,
+    "dateTo": dateTo
   };
   parameters = JSON.stringify(parameters)
   ipcRenderer.send('sending-Parameters', parameters);
