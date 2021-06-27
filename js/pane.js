@@ -26,8 +26,8 @@ function getTodaysDate() {
 
 
 //Function to make a api call all get artilce and load it on main page
-async function loadCategotry(category = 'everything', country = '', keyword = defaultkeyword, dateFrom = getTodaysDate(), dateTo = '', sortBy = '', source = '') {
-  var tp = await fetchApiResult(category, country, keyword, dateFrom, dateTo, sortBy, source).then(function (val) {
+async function loadCategotry(endPoint = '', category = '', country = '', keyword = '', dateFrom = '', dateTo = '', sortBy = '', source = '', lang = 'en') {
+  var tp = await fetchApiResult(endPoint, category, country, keyword, dateFrom, dateTo, sortBy, source, lang).then(function (val) {
     return val;
 
   }).catch(function (err) {
@@ -50,7 +50,8 @@ async function loadCategotry(category = 'everything', country = '', keyword = de
 
     x.innerHTML += `<div class="card" id="${news_card_id}">
             <div class="card-header">
-              Source : ${tp[i]["source"]["name"]}
+              Source : ${tp[i]["source"]["name"]} 
+              <span style="float:right;">Published At : ${tp[i]["publishedAt"].substr(0,10)} </span>
             </div>
             <div class="card-body">
               <h5 class="card-title"><b>${tp[i]['title']} </b></h5>
@@ -73,9 +74,20 @@ async function loadCategotry(category = 'everything', country = '', keyword = de
 //Function to search a specific keyword and load it on main page
 function search() {
   curkw = document.getElementById("search-text").value;
-  loadCategotry(undefined, undefined, curkw, undefined, undefined, 'date', undefined);
+  loadCategotry('everything', undefined, undefined, curkw, undefined, undefined, 'date', undefined, "en");
 }
 
+function getDateString(dateString) {
+  var res = '';
+
+  var year = dateString.getFullYear();
+  var month = dateString.getMonth() + 1;
+  var date = dateString.getDate();
+  if (date < 10) date = '0' + date;
+  if (month < 10) month = '0' + month;
+
+  return year + "-" + month + "-" + date;
+}
 
 
 //Function to fetch a speciic collection from database and load it on main screen
@@ -95,11 +107,21 @@ async function loadAlbum(AlbumName) {
     var id_desc = "new-card-desc" + i;
     var rid_btn = "new-card-desc-R" + i;
     var lid_btn = "new-card-desc-L" + i;
+
+    var date = albumArticles[i]["publishedAt"].getFullYear();
+    date += '-' + albumArticles[i]["publishedAt"].getMonth();
+    date += '-' + albumArticles[i]["publishedAt"].getDate();
     articles[news_card_id] = albumArticles[i];
+
+
+    var date = getDateString(albumArticles[i]["publishedAt"]);
+
+    console.log(date)
 
     x.innerHTML += `<div class="card" id="${news_card_id}">
             <div class="card-header">
               Source : ${albumArticles[i]["source"]}
+              <span style="float:right;">Published At : ${date } </span>
             </div>
             <div class="card-body">
               <h5 class="card-title"><b>${albumArticles[i]["title"]} </b></h5>
@@ -121,7 +143,7 @@ async function loadAlbum(AlbumName) {
 function showAlbums() {
 
 
-  
+
   var x = document.getElementById("news-cards");
 
 
@@ -155,15 +177,15 @@ function sendArticle(id) {
 
 }
 
-function launchFilterWin(){
+function launchFilterWin() {
 
   ipcRenderer.send('launch-filterWindow', "get filtering parameter");
 
 }
 
-ipcRenderer.on("sending filter para",(event,paras)=>{
+ipcRenderer.on("sending filter para", (event, paras) => {
   console.log(paras)
-  loadCategotry(paras["category"], paras["country"], curkw, paras["dateFrom"], paras["to"],undefined, paras["source"]);
+  loadCategotry(paras["category"], paras["country"], curkw, paras["dateFrom"], paras["to"], undefined, paras["source"], paras["language"]);
 })
 
 
@@ -171,7 +193,7 @@ ipcRenderer.on("sending filter para",(event,paras)=>{
 function saveArticle(id) {
 
 
-  db.CreatDocument("savedArticle", articles[id]["url"], articles[id]["title"], articles[id]["source"]["name"], articles[id]["description"]);
+  db.CreatDocument("savedArticle", articles[id]["url"], articles[id]["title"], articles[id]["source"]["name"], articles[id]["description"], articles[id]["publishedAt"]);
 
 }
 

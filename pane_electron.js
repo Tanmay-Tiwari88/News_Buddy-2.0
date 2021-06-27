@@ -54,9 +54,9 @@ ipcMain.on('close-menu', (event, message) => {
 });
 
 
-ipcMain.on("sending-Parameters",(event,paras)=>{
+ipcMain.on("sending-Parameters", (event, paras) => {
   filterWindow.hide()
-  win.webContents.send("sending filter para",JSON.parse(paras));
+  win.webContents.send("sending filter para", JSON.parse(paras));
 })
 
 
@@ -122,7 +122,7 @@ app.on('ready', () => {
     height: 600,
     width: 400,
     show: false,
-    frame:false,
+    frame: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -140,12 +140,12 @@ app.on('ready', () => {
     height: 600,
     width: 400,
     show: false,
-    frame:false,
+    frame: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true,
-    
+
 
     }
   });
@@ -166,9 +166,7 @@ app.on('ready', () => {
       clearInterval(slideout);
       slidein = setInterval(() => movein(), 4);
 
-    }
-
-    else {
+    } else {
       //console.log("sliding out");
       clearInterval(slidein);
       movingin = false;

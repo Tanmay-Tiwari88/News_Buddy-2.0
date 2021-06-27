@@ -27,7 +27,8 @@ function sendParameters() {
     "category": category,
     "country": country,
     "dateFrom": dateFrom,
-    "dateTo": dateTo
+    "dateTo": dateTo,
+    "language":"en"
   };
   parameters = JSON.stringify(parameters)
   ipcRenderer.send('sending-Parameters', parameters);

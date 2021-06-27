@@ -22,13 +22,17 @@ const ArticleUrlSchema = new mongoose.Schema({
     description: {
         type: String,
         required: true
+    },
+    publishedAt: {
+        type: Date,
+        require: true
     }
 });
 
 
 
 
-const CreatDocument = async (AlbumName, urlin, titlein, sourcein, descriptionin) => {
+const CreatDocument = async (AlbumName, urlin, titlein, sourcein, descriptionin, pubAt) => {
     try {
         mongoose.pluralize(null);
         const CatArticle = new mongoose.model(AlbumName, ArticleUrlSchema);
@@ -36,7 +40,8 @@ const CreatDocument = async (AlbumName, urlin, titlein, sourcein, descriptionin)
             url: urlin,
             title: titlein,
             source: sourcein,
-            description: descriptionin
+            description: descriptionin,
+            publishedAt: pubAt
         })
         const result = await catArticle.save();
 
