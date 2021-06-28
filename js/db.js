@@ -44,10 +44,12 @@ const CreatDocument = async (AlbumName, urlin, titlein, sourcein, descriptionin,
             publishedAt: pubAt
         })
         const result = await catArticle.save();
+        return true;
 
 
     } catch (err) {
         console.log(err);
+        return false;
     }
 }
 

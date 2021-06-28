@@ -25,7 +25,7 @@
     position: absolute;
     overflow-y:scroll;
     width: 100%;
-    height: 100%;
+    height: 82%;
     
 }
 .pane-header nav{
@@ -73,4 +73,6 @@
  .card-body .rl-btn{
     display: none;
   }
+
+
 

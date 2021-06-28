@@ -173,6 +173,7 @@ function showAlbums() {
 //Sends article to Album menu process
 function sendArticle(id) {
 
+
   ipcRenderer.send('Sending-Article', articles[id]);
 
 }
@@ -185,7 +186,7 @@ function launchFilterWin() {
 
 ipcRenderer.on("sending filter para", (event, paras) => {
   console.log(paras)
-  loadCategotry(paras["category"], paras["country"], curkw, paras["dateFrom"], paras["to"], undefined, paras["source"], paras["language"]);
+  loadCategotry(paras['endPoint'],paras["category"], paras["country"], curkw, paras["dateFrom"], paras["dateTo"], paras["sort-by"], paras["source"], paras["language"]);
 })
 
 
@@ -193,7 +194,12 @@ ipcRenderer.on("sending filter para", (event, paras) => {
 function saveArticle(id) {
 
 
-  db.CreatDocument("savedArticle", articles[id]["url"], articles[id]["title"], articles[id]["source"]["name"], articles[id]["description"], articles[id]["publishedAt"]);
+  var save=db.CreatDocument("savedArticle", articles[id]["url"], articles[id]["title"], articles[id]["source"]["name"], articles[id]["description"], articles[id]["publishedAt"]);
+  if(save){
+    myFunction();
+    
+  }
+
 
 }
 
@@ -234,3 +240,4 @@ function hideDesc(id, rid_btn, lid_btn) {
   x.style.display = "none";
 
 }
+

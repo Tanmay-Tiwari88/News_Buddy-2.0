@@ -4,6 +4,8 @@ const request = require('request');
 function fetchApiResult(endPoint = 'everything' ,category='',country = '', keyword = '', dateFrom = '', dateTo = '', sortBy = '', source = '',language='') {
     return new Promise(function (resolve, reject) {
 
+
+        console.log(dateTo);
         var url = `https://newsapi.org/v2/${endPoint}?`
         if (keyword != '') url += `q=${keyword}&`
         if (country != '') url += `country=${country}&`
@@ -13,7 +15,7 @@ function fetchApiResult(endPoint = 'everything' ,category='',country = '', keywo
         if (source != '') url += `sources=${source}&`
         if (category != '') url += `category=${category}&`
         if (language != '') url += `language=${language}&`
-        url += 'apiKey=64b11e57419f455da95bd52189b56246'
+        url += 'apiKey=2f1766759ade49a88efdd06cc1b580ae'
         console.log(url);
         request(url, (err, res, body) => {
 
