@@ -16,7 +16,7 @@ function sendParameters() {
   var source = document.getElementById("src").value;
   var country = document.getElementById("con").value;
   var category = document.getElementById("cat").value;
-  var  sortby = $("input[type='radio'][name='sort-by']:checked").val();
+  var sortby = $("input[type='radio'][name='sort-by']:checked").val();
   var dateFrom = document.getElementById("dateFrom").value;
   var dateTo = document.getElementById("dateTo").value;
 
@@ -26,12 +26,12 @@ function sendParameters() {
   parameters = {
     "endPoint": endPoint,
     "source": source,
-    "category":category,
+    "category": category,
     "country": country,
-    "sort-by" : sortby,
+    "sort-by": sortby,
     "dateFrom": dateFrom,
     "dateTo": dateTo,
-    "language":"en"
+    "language": "en"
   };
   console.log(sortby);
   parameters = JSON.stringify(parameters)
@@ -39,11 +39,11 @@ function sendParameters() {
 
 }
 
-$(document).ready(function() {
-  $('input[name=endPoint]:radio').change(function(e) {
+$(document).ready(function () {
+  $('input[name=endPoint]:radio').change(function (e) {
     let value = e.target.value.trim()
     console.log(value)
-    
+
 
     switch (value) {
       case 'top-headlines':

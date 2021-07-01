@@ -29,32 +29,30 @@
     <div class="wrapper container" style="height: 100%;">
 
         <div class="form-group">
-            <label ><b>End Point</b></label>
+            <label><b>End Point</b></label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="endPoint"
-                    value="top-headlines" checked>
+                <input class="form-check-input" type="radio" name="endPoint" value="top-headlines" checked>
                 <label class="form-check-label">
                     Top-Headlines
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="endPoint" 
-                    value="everything">
-                <label >
+                <input class="form-check-input" type="radio" name="endPoint" value="everything">
+                <label>
                     Everything
                 </label>
             </div>
         </div>
         <form id='filter-form'>
-            <div class="form-group" style="display: none;" id = "src1">
+            <div class="form-group" style="display: none;" id="src1">
                 <label><b>Source</b></label>
                 <input type="text" class="form-control" id="src">
             </div>
 
-            <div class="form-group" style="display: none;" id = 'con1'>
+            <div class="form-group" style="display: none;" id='con1'>
                 <label><b>Country</b></label>
                 <select class="form-control" id="con" ">
-                    <option label="All"></option>
+                    <option label=" All"></option>
                     <option value="ar" label="Argentina"></option>
                     <option value="au" label="Australia"></option>
                     <option value="at" label="Austria"></option>
@@ -110,7 +108,7 @@
                 </select>
             </div>
 
-            <div class="form-group"  style="display: none;" id = 'cat1'>
+            <div class="form-group" style="display: none;" id='cat1'>
                 <label><b>Category<b></b></label>
                 <select class="form-control" id="cat">
                     <option value="" label="None"></option>
@@ -124,28 +122,26 @@
 
                 </select>
             </div>
-            <div class="form-group" style="display:none" id = 'sb'>
-                <label ><b>Sort-By</b></label>
+            <div class="form-group" style="display:none" id='sb'>
+                <label><b>Sort-By</b></label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sort-by"
-                        value="publishedAt" checked>
+                    <input class="form-check-input" type="radio" name="sort-by" value="publishedAt" checked>
                     <label class="form-check-label">
                         Date
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sort-by" 
-                        value="Popularity">
+                    <input class="form-check-input" type="radio" name="sort-by" value="Popularity">
                     <label class="form-check-label" for="exampleRadios2">
                         Popularity
                     </label>
                 </div>
             </div>
-            <div class="form-group" style="display: none;" id = 'df'>
+            <div class="form-group" style="display: none;" id='df'>
                 <label for="exampleFormControlInput1"><b>Date From</b></label>
                 <input type="date" class="form-control" id="dateFrom">
             </div>
-            <div class="form-group" style="display: none;" id = 'dt'>
+            <div class="form-group" style="display: none;" id='dt'>
                 <label for="exampleFormControlInput1"><b>Date To</b></label>
                 <input type="date" class="form-control" id="dateTo">
             </div>
