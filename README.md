@@ -25,12 +25,6 @@ clone the repo, open folder in terminal
   -install mongodb 
   -run npm install
   -run npm start
-![Image1](https://octodex.github.com/images/yaktocat.png)
-![Image2](https://octodex.github.com/images/yaktocat.png)
+![Image1](https://github.com/Tanmay-Tiwari88/News_Buddy-2.0/blob/main/images/Screenshot%20from%202021-07-01%2009-16-45.png)
+![Image2](https://github.com/Tanmay-Tiwari88/News_Buddy-2.0/blob/main/images/Screenshot%20from%202021-07-01%2009-16-46.png)
 
-/home/tanmay/Projects/News_Buddy-2.0/images/Screenshot from 2021-07-01 09-16-45.png
-/home/tanmay/Projects/News_Buddy-2.0/images/Screenshot from 2021-07-01 09-17-17.png
-/home/tanmay/Projects/News_Buddy-2.0/images/Screenshot from 2021-07-01 09-17-44.png
-/home/tanmay/Projects/News_Buddy-2.0/images/Screenshot from 2021-07-01 09-17-50.png
-/home/tanmay/Projects/News_Buddy-2.0/images/Screenshot from 2021-07-01 09-18-09.png
-/home/tanmay/Projects/News_Buddy-2.0/images/Screenshot from 2021-07-01 09-18-12.png
