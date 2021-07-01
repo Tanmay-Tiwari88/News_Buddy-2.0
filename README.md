@@ -26,5 +26,7 @@ clone the repo, open folder in terminal
   -run npm install
   -run npm start
 ![Image1](https://github.com/Tanmay-Tiwari88/News_Buddy-2.0/blob/main/images/Screenshot%20from%202021-07-01%2009-16-45.png)
-![Image2](https://github.com/Tanmay-Tiwari88/News_Buddy-2.0/blob/main/images/Screenshot%20from%202021-07-01%2009-16-46.png)
-
+![Image2](https://github.com/Tanmay-Tiwari88/News_Buddy-2.0/blob/main/images/Screenshot%20from%202021-07-01%2009-17-17.png)
+![Image2](https://github.com/Tanmay-Tiwari88/News_Buddy-2.0/blob/main/images/Screenshot%20from%202021-07-01%2009-17-44.png)
+![Image2](https://github.com/Tanmay-Tiwari88/News_Buddy-2.0/blob/main/images/Screenshot%20from%202021-07-01%2009-18-09.png)
+![Image2](https://github.com/Tanmay-Tiwari88/News_Buddy-2.0/blob/main/images/Screenshot%20from%202021-07-01%2009-18-12.png)
