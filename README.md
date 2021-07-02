@@ -25,8 +25,8 @@ clone the repo, open folder in terminal
   -install mongodb 
   -run npm install
   -run npm start
-![Image1](https://github.com/Tanmay-Tiwari88/News_Buddy-2.0/blob/main/images/Screenshot%20from%202021-07-01%2009-16-45.png)
-![Image2](https://github.com/Tanmay-Tiwari88/News_Buddy-2.0/blob/main/images/Screenshot%20from%202021-07-01%2009-17-17.png)
-![Image2](https://github.com/Tanmay-Tiwari88/News_Buddy-2.0/blob/main/images/Screenshot%20from%202021-07-01%2009-17-44.png)
-![Image2](https://github.com/Tanmay-Tiwari88/News_Buddy-2.0/blob/main/images/Screenshot%20from%202021-07-01%2009-18-09.png)
-![Image2](https://github.com/Tanmay-Tiwari88/News_Buddy-2.0/blob/main/images/Screenshot%20from%202021-07-01%2009-18-12.png)
+![Image1](https://github.com/Tanmay-Tiwari88/News_Buddy-2.0/blob/main/images/Screenshot%20from%202021-07-02%2013-12-46.png)
+![Image2](https://github.com/Tanmay-Tiwari88/News_Buddy-2.0/blob/main/images/Screenshot%20from%202021-07-02%2013-12-33.png)
+![Image2](https://github.com/Tanmay-Tiwari88/News_Buddy-2.0/blob/main/images/Screenshot%20from%202021-07-02%2012-58-48.png)
+![Image2](https://github.com/Tanmay-Tiwari88/News_Buddy-2.0/blob/main/images/Screenshot%20from%202021-07-02%2012-58-43.png)
+![Image2](https://github.com/Tanmay-Tiwari88/News_Buddy-2.0/blob/main/images/Screenshot%20from%202021-07-02%2012-58-37.png)
