@@ -27,9 +27,9 @@ const ArticleUrlSchema = new mongoose.Schema({
         type: Date,
         require: true
     },
-    urlToImage:{
+    urlToImage: {
         type: String,
-        
+
     }
 });
 
@@ -46,7 +46,7 @@ const CreatDocument = async (AlbumName, urlin, titlein, sourcein, descriptionin,
             source: sourcein,
             description: descriptionin,
             publishedAt: pubAt,
-            urlToImage:urlToImg
+            urlToImage: urlToImg
         })
         const result = await catArticle.save();
         return true;

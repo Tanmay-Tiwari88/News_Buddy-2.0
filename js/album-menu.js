@@ -16,7 +16,7 @@ ipcRenderer.on('Send-Article-menu', (event, tp) => {
     menuGrp.innerHTML = '';
 
     article = tp;
-    
+
 
 
 
@@ -26,7 +26,7 @@ ipcRenderer.on('Send-Article-menu', (event, tp) => {
         menuGrp.innerHTML = '';
         for (i in names) {
             var name = names[i]["name"];
-           
+
             menuGrp.innerHTML += `<a href="#" class="list-group-item list-group-item-action"  
             style = "background-color:#202225; color:#DEEEEA; margin_bottom:10%"
             onclick="saveArticle('${name}')">
@@ -57,14 +57,14 @@ ipcRenderer.on('Send-Article-menu', (event, tp) => {
 
 function saveArticle(albName) {
     console.log(article["url"])
-    db.CreatDocument(albName,article['url'], article['title'], article['source']['name'], article['description'], article['publishedAt'], article['urlToImage']);
+    db.CreatDocument(albName, article['url'], article['title'], article['source']['name'], article['description'], article['publishedAt'], article['urlToImage']);
     ipcRenderer.send('close-menu', 'success');
 }
 
 function addnewalb() {
 
     albName = document.getElementById("newAlbum-name").value
-    db.CreatDocument(albName,article['url'], article['title'], article['source']['name'], article['description'], article['publishedAt'], article['urlToImage']);
+    db.CreatDocument(albName, article['url'], article['title'], article['source']['name'], article['description'], article['publishedAt'], article['urlToImage']);
     ipcRenderer.send('close-menu', 'success');
 
 

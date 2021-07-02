@@ -15,7 +15,7 @@ function fetchApiResult(endPoint = 'everything' ,category='',country = '', keywo
         if (source != '') url += `sources=${source}&`
         if (category != '') url += `category=${category}&`
         if (language != '') url += `language=${language}&`
-        url += 'apiKey=2f1766759ade49a88efdd06cc1b580ae'
+        url += 'apiKey=b7cff19d4d9f4d5482ac2bf9e8098874'
         console.log(url);
         request(url, (err, res, body) => {
 
