@@ -20,7 +20,7 @@ function sendParameters() {
   var dateFrom = document.getElementById("dateFrom").value;
   var dateTo = document.getElementById("dateTo").value;
 
-  source = source.replace(" ", "-").toLowerCase();
+  source = source.replaceAll(" ", "-").toLowerCase();
   country = country.toLowerCase();
 
   parameters = {

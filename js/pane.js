@@ -27,6 +27,7 @@ function getTodaysDate() {
 
 //Function to make a api call all get artilce and load it on main page
 async function loadCategotry(endPoint = '', category = '', country = '', keyword = '', dateFrom = '', dateTo = '', sortBy = '', source = '', lang = 'en') {
+  
   var tp = await fetchApiResult(endPoint, category, country, keyword, dateFrom, dateTo, sortBy, source, lang).then(function (val) {
     return val;
 
@@ -49,6 +50,8 @@ async function loadCategotry(endPoint = '', category = '', country = '', keyword
     articles[news_card_id] = tp[i];
 
     x.innerHTML += `<div class="card" id="${news_card_id}">
+            <img class="card-img-top" src="${tp[i]["urlToImage"]}" alt="Card image">
+            
             <div class="card-header">
               Source : ${tp[i]["source"]["name"]} 
               <span style="float:right;">Published At : ${tp[i]["publishedAt"].substr(0,10)} </span>
@@ -56,15 +59,15 @@ async function loadCategotry(endPoint = '', category = '', country = '', keyword
             <div class="card-body">
               <h5 class="card-title"><b>${tp[i]['title']} </b></h5>
               <p class="desc" id='${id_desc}'>${tp[i]['description']}</p>
-              <a href="#"  id="${rid_btn}" onclick="showDesc('${id_desc}','${rid_btn}','${lid_btn}')" ><i class="fa fa-arrow-down" aria-hidden="true"></i>
+              <a href="#"  id="${rid_btn}" onclick="showDesc('${id_desc}','${rid_btn}','${lid_btn}')" style="margin-right:5%; margin-left:5%"><i class="fa fa-arrow-down" aria-hidden="true"></i>
               </a>
-              <a href="#" class=" rl-btn" id="${lid_btn}" onclick="hideDesc('${id_desc}','${rid_btn}','${lid_btn}')" ><i class="fa fa-arrow-up" aria-hidden="true"></i>
+              <a href="#" class=" rl-btn" id="${lid_btn}" onclick="hideDesc('${id_desc}','${rid_btn}','${lid_btn}')" style="margin-right:5%"><i class="fa fa-arrow-up" aria-hidden="true"></i>
               </a>
-              <a href="#"  onclick="saveArticle('${news_card_id}')"><i class="fa fa-bookmark" aria-hidden="true"></i></a>
-              <a href="#" class="Album-btn" onclick="sendArticle('${news_card_id}')"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+              <a href="#"  onclick="saveArticle('${news_card_id}')" style="margin-right:5%"><i class="fa fa-bookmark" aria-hidden="true"></i></a>
+              <a href="#" class="Album-btn" onclick="sendArticle('${news_card_id}')" style="margin-right:5%"><i class="fa fa-plus-circle" aria-hidden="true"></i>
               </a>
             </div>
-          </div>`
+          `
   }
 
 
@@ -119,6 +122,7 @@ async function loadAlbum(AlbumName) {
     console.log(date)
 
     x.innerHTML += `<div class="card" id="${news_card_id}">
+            <img class="card-img-top" src="${albumArticles[i]["urlToImage"]}" alt="Card image">
             <div class="card-header">
               Source : ${albumArticles[i]["source"]}
               <span style="float:right;">Published At : ${date } </span>
@@ -126,11 +130,11 @@ async function loadAlbum(AlbumName) {
             <div class="card-body">
               <h5 class="card-title"><b>${albumArticles[i]["title"]} </b></h5>
               <p class="desc" id='${id_desc}'>${albumArticles[i]['description']}</p>
-              <a href="#"  id="${rid_btn}" onclick="showDesc('${id_desc}','${rid_btn}','${lid_btn}')" ><i class="fa fa-arrow-down" aria-hidden="true"></i>
+              <a href="#"  id="${rid_btn}" onclick="showDesc('${id_desc}','${rid_btn}','${lid_btn}')" style="margin-right:5%; margin-left:5%" ><i class="fa fa-arrow-down" aria-hidden="true"></i>
               </a>
-              <a href="#" class=" rl-btn" id="${lid_btn}" onclick="hideDesc('${id_desc}','${rid_btn}','${lid_btn}')" ><i class="fa fa-arrow-up" aria-hidden="true"></i>
+              <a href="#" class=" rl-btn" id="${lid_btn}" onclick="hideDesc('${id_desc}','${rid_btn}','${lid_btn}')" style="margin-right:5%"><i class="fa fa-arrow-up" aria-hidden="true"></i>
               </a>
-              <a href="#" ><i class="fa fa-trash" onclick="deleteArticle('${AlbumName}', '${albumArticles[i]['url']}')"></i></a>
+              <a href="#" ><i class="fa fa-trash" onclick="deleteArticle('${AlbumName}', '${albumArticles[i]['url']}' )"  style="margin-right:5%" ></i></a>
             </div>
           </div>`
   }
@@ -194,11 +198,9 @@ ipcRenderer.on("sending filter para", (event, paras) => {
 function saveArticle(id) {
 
 
-  var save = db.CreatDocument("savedArticle", articles[id]["url"], articles[id]["title"], articles[id]["source"]["name"], articles[id]["description"], articles[id]["publishedAt"]);
-  if (save) {
-    myFunction();
-
-  }
+  var save = db.CreatDocument("savedArticle", articles[id]["url"], 
+        articles[id]["title"], articles[id]["source"]["name"], articles[id]["description"], articles[id]["publishedAt"],articles[id]["urlToImage"]);
+  
 
 
 }

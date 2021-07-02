@@ -24,12 +24,12 @@
     </script>
 </head>
 
-<body onload="loadCategotry('everything',undefined ,undefined ,'covid')">
+<body onload="loadCategotry('top-headlines','general')">
   <div class="wrapper">
     <div class="pane-header">
       <nav class="navbar navbar-dark ">
-        <a href="#" class="navbar-left"><img src="../images/newsbuddy.png" width="27px">
-          <b>News Buddy</b></a>
+        <div class="navbar-left" style="color: white;"></a><img src="../images/newsbuddy.png" width="30px">
+          <b>News Buddy</b></div>
         <ul class="nav">
 
           <li class="nav-item">
@@ -47,13 +47,13 @@
 
       <ul class="nav  justify-content-center">
         <li class="nav-item">
+          <a class="nav-link" onclick="loadCategotry('top-headlines','general')" href="#">Hots</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" onclick="loadCategotry('top-headlines','business')" href="#">Business</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" onclick="loadCategotry('top-headlines','entertainment')" href="#">Entertainment</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" onclick="loadCategotry('top-headlines','general')" href="#">General</a>
         </li>
         <li class="nav-item">
           <a class="nav-link "onclick="loadCategotry('top-headlines','health')" href="#">Health</a>
