@@ -39,6 +39,11 @@ ipcMain.on('Sending-Article', (event, tp) => {
 
 });
 
+//hides album menu after saving the article
+ipcMain.on('close-menu', (event, message) => {
+  albumMenu.hide();
+});
+
 //launch filterWindow
 ipcMain.on('launch-filterWindow', (event, tp) => {
   filterWindow.show()
@@ -47,13 +52,7 @@ ipcMain.on('launch-filterWindow', (event, tp) => {
 
 });
 
-
-//hides album menu after saving the article
-ipcMain.on('close-menu', (event, message) => {
-  albumMenu.hide();
-});
-
-
+//recieve articel from filter and send it to pane page
 ipcMain.on("sending-Parameters", (event, paras) => {
   filterWindow.hide()
   win.webContents.send("sending filter para", JSON.parse(paras));
@@ -189,7 +188,7 @@ app.on('ready', () => {
 
   // });
 
-
+  //hiding secondary screens to of clicking somewhere else on screen
   albumMenu.on("blur", () => {
     albumMenu.hide();
   });

@@ -35,7 +35,6 @@ const ArticleUrlSchema = new mongoose.Schema({
 
 
 
-
 const CreatDocument = async (AlbumName, urlin, titlein, sourcein, descriptionin, pubAt, urlToImg) => {
     try {
         mongoose.pluralize(null);

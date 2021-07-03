@@ -6,12 +6,13 @@ const {
 
 var parameters;
 ipcRenderer.on('show-them', (event, tp) => {
-
-  console.log(tp);
+  continue;
 
 })
 
 function sendParameters() {
+  
+  //Geting form values
   var endPoint = $("input[type='radio'][name='endPoint']:checked").val();
   var source = document.getElementById("src").value;
   var country = document.getElementById("con").value;
@@ -20,6 +21,7 @@ function sendParameters() {
   var dateFrom = document.getElementById("dateFrom").value;
   var dateTo = document.getElementById("dateTo").value;
 
+  //formating input
   source = source.replaceAll(" ", "-").toLowerCase();
   country = country.toLowerCase();
 
@@ -33,12 +35,14 @@ function sendParameters() {
     "dateTo": dateTo,
     "language": "en"
   };
-  console.log(sortby);
+  
+  //converting parameters to string to send to main process
   parameters = JSON.stringify(parameters)
   ipcRenderer.send('sending-Parameters', parameters);
 
 }
 
+//loading form according to input
 $(document).ready(function () {
   $('input[name=endPoint]:radio').change(function (e) {
     let value = e.target.value.trim()

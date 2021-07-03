@@ -1,6 +1,7 @@
 const fetchApiResult = require('../js/Apicall');
 const path = require("path");
 const BrowserWindow = require('electron').remote.BrowserWindow;
+
 const {
   ipcRenderer
 } = require("electron");
@@ -24,6 +25,48 @@ function getTodaysDate() {
   return today;
 }
 
+//function to show full description off News Article
+
+function showDesc(id, rid_btn, lid_btn) {
+  console.log(id);
+  var x = document.getElementById(id);
+  document.getElementById(rid_btn).style.display = "none";
+  document.getElementById(lid_btn).style.display = "inline";
+
+  x.style.display = "block";
+
+}
+
+//function to hide full description off News Article
+
+function hideDesc(id, rid_btn, lid_btn) {
+
+  console.log(id);
+  var x = document.getElementById(id);
+  document.getElementById(lid_btn).style.display = "none";
+  document.getElementById(rid_btn).style.display = "inline";
+
+  x.style.display = "none";
+
+}
+
+//Function to search a specific keyword and load it on main page
+function search() {
+  curkw = document.getElementById("search-text").value;
+  loadCategotry('everything', undefined, undefined, curkw, undefined, undefined, 'date', undefined, "en");
+}
+
+function getDateString(dateString) {
+  var res = '';
+
+  var year = dateString.getFullYear();
+  var month = dateString.getMonth() + 1;
+  var date = dateString.getDate();
+  if (date < 10) date = '0' + date;
+  if (month < 10) month = '0' + month;
+
+  return year + "-" + month + "-" + date;
+}
 
 //Function to make a api call all get artilce and load it on main page
 async function loadCategotry(endPoint = '', category = '', country = '', keyword = '', dateFrom = '', dateTo = '', sortBy = '', source = '', lang = 'en') {
@@ -74,23 +117,7 @@ async function loadCategotry(endPoint = '', category = '', country = '', keyword
 
 }
 
-//Function to search a specific keyword and load it on main page
-function search() {
-  curkw = document.getElementById("search-text").value;
-  loadCategotry('everything', undefined, undefined, curkw, undefined, undefined, 'date', undefined, "en");
-}
 
-function getDateString(dateString) {
-  var res = '';
-
-  var year = dateString.getFullYear();
-  var month = dateString.getMonth() + 1;
-  var date = dateString.getDate();
-  if (date < 10) date = '0' + date;
-  if (month < 10) month = '0' + month;
-
-  return year + "-" + month + "-" + date;
-}
 
 
 //Function to fetch a speciic collection from database and load it on main screen
@@ -177,7 +204,6 @@ function showAlbums() {
 //Sends article to Album menu process
 function sendArticle(id) {
 
-
   ipcRenderer.send('Sending-Article', articles[id]);
 
 }
@@ -189,8 +215,9 @@ function launchFilterWin() {
 }
 
 ipcRenderer.on("sending filter para", (event, paras) => {
-  console.log(paras)
+  
   loadCategotry(paras['endPoint'], paras["category"], paras["country"], curkw, paras["dateFrom"], paras["dateTo"], paras["sort-by"], paras["source"], paras["language"]);
+
 })
 
 
@@ -207,10 +234,10 @@ function saveArticle(id) {
 
 //Function to delete Atricle from give collecction
 async function deleteArticle(AlbumName, url) {
+
   db.deletDocument(AlbumName, url);
   var artCount = await db.getCount(AlbumName);
 
-  console.log(artCount);
   //if number of article in Article is 0 we drop that Article
   if (artCount == 0)
     db.dropCollection(AlbumName);
@@ -218,27 +245,3 @@ async function deleteArticle(AlbumName, url) {
   loadAlbum(AlbumName);
 }
 
-//function to show full description off News Article
-
-function showDesc(id, rid_btn, lid_btn) {
-  console.log(id);
-  var x = document.getElementById(id);
-  document.getElementById(rid_btn).style.display = "none";
-  document.getElementById(lid_btn).style.display = "inline";
-
-  x.style.display = "block";
-
-}
-
-//function to hide full description off News Article
-
-function hideDesc(id, rid_btn, lid_btn) {
-
-  console.log(id);
-  var x = document.getElementById(id);
-  document.getElementById(lid_btn).style.display = "none";
-  document.getElementById(rid_btn).style.display = "inline";
-
-  x.style.display = "none";
-
-}
