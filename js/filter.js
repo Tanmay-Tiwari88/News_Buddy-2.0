@@ -6,7 +6,7 @@ const {
 
 var parameters;
 ipcRenderer.on('show-them', (event, tp) => {
-  continue;
+  console.log(tp);
 
 })
 
