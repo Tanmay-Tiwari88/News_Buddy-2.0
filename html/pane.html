@@ -24,7 +24,7 @@
   </script>
 </head>
 
-<body onload="loadCategotry('top-headlines','general')">
+<body onload="loadCategotry('top-headlines','general'); changeTabs('hots')">
   <div class="wrapper">
     <div class="pane-header">
       <nav class="navbar navbar-dark ">
@@ -46,26 +46,26 @@
       </nav>
 
       <ul class="nav  justify-content-center">
-        <li class="nav-item">
-          <a class="nav-link" onclick="loadCategotry('top-headlines','general')" href="#">Hots</a>
+        <li class="nav-item ">
+          <a class="nav-link" onclick="loadCategotry('top-headlines','general'); changeTabs('hots')" href="#" id = 'hots'>Hots</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" onclick="loadCategotry('top-headlines','business')" href="#">Business</a>
+          <a class="nav-link" onclick="loadCategotry('top-headlines','business'); changeTabs('business')" href="#" id ='business'>Business</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" onclick="loadCategotry('top-headlines','entertainment')" href="#">Entertainment</a>
+          <a class="nav-link" onclick="loadCategotry('top-headlines','entertainment'); changeTabs('entertainment')" href="#" id = 'entertainment'>Entertainment</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " onclick="loadCategotry('top-headlines','health')" href="#">Health</a>
+          <a class="nav-link " onclick="loadCategotry('top-headlines','health'); changeTabs('health')" href="#" id ='health'>Health</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " onclick="loadCategotry('top-headlines','science')" href="#">Science</a>
+          <a class="nav-link " onclick="loadCategotry('top-headlines','science'); changeTabs('science')" href="#" id = 'science'>Science</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " onclick="loadCategotry('top-headlines','sports')" href="#">Sports</a>
+          <a class="nav-link " onclick="loadCategotry('top-headlines','sports'); changeTabs('sports')" href="#" id ='sports'>Sports</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " onclick="loadCategotry('top-headlines','technology')" href="#">Technology</a>
+          <a class="nav-link " onclick="loadCategotry('top-headlines','technology'); changeTabs('tech')" href="#" id="tech">Technology</a>
         </li>
       </ul>
 

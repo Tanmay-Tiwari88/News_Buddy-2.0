@@ -10,9 +10,10 @@ const mongoose = require("mongoose")
 
 //global Variables in use
 var x;
-var defaultkeyword = "Covid";
+var defaultkeyworld = "Covid";
 var articles = {};
-var curkw = defaultkeyword;
+var curkw = defaultkeyworld;
+var curActivetab = "hots";
 
 //Function too get todays date for default search 
 function getTodaysDate() {
@@ -243,5 +244,12 @@ async function deleteArticle(AlbumName, url) {
     db.dropCollection(AlbumName);
 
   loadAlbum(AlbumName);
+}
+
+function changeTabs(id)
+{
+    document.getElementById(curActivetab).style.color ='#FAF3F3';
+    curActivetab = id;
+    document.getElementById(curActivetab).style.color ='#34656D';
 }
 
