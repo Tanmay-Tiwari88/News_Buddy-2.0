@@ -8,6 +8,12 @@ const {
 const db = require("../js/db");
 const mongoose = require("mongoose")
 
+function openArticleSource(url)
+{
+  var Source = new BrowserWindow();
+  Source.loadURL(url);
+}
+
 //global Variables in use
 var x;
 var defaultkeyworld = "Covid";
@@ -92,16 +98,19 @@ async function loadCategotry(endPoint = '', category = '', country = '', keyword
     var rid_btn = "new-card-desc-R" + i;
     var lid_btn = "new-card-desc-L" + i;
     articles[news_card_id] = tp[i];
+    var imgUrl = '../images/defimg.png';
+    if(tp[i]["urlToImage"] != undefined)
+      imgUrl = tp[i]["urlToImage"]
 
     x.innerHTML += `<div class="card" id="${news_card_id}">
-            <img class="card-img-top" src="${tp[i]["urlToImage"]}" alt="Card image">
+            <img class="card-img-top" src="${imgUrl}" alt="Card image">
             
             <div class="card-header">
-              Source : ${tp[i]["source"]["name"]} 
+              <a href ="#"  onclick = "openArticleSource('${tp[i]['url']}')">Source : ${tp[i]["source"]["name"]} </a>
               <span style="float:right;">Published At : ${tp[i]["publishedAt"].substr(0,10)} </span>
             </div>
             <div class="card-body">
-              <h5 class="card-title"><b>${tp[i]['title']} </b></h5>
+              <h5 class="card-title"><b>${tp[i]['title']}   </b></h5>
               <p class="desc" id='${id_desc}'>${tp[i]['description']}</p>
               <a href="#"  id="${rid_btn}" onclick="showDesc('${id_desc}','${rid_btn}','${lid_btn}')" style="margin-right:5%; margin-left:5%"><i class="fa fa-arrow-down" aria-hidden="true"></i>
               </a>
@@ -142,17 +151,20 @@ async function loadAlbum(AlbumName) {
     var date = albumArticles[i]["publishedAt"].getFullYear();
     date += '-' + albumArticles[i]["publishedAt"].getMonth();
     date += '-' + albumArticles[i]["publishedAt"].getDate();
-    articles[news_card_id] = albumArticles[i];
 
+    var imgUrl = '../images/defimg.png';
+
+    if( albumArticles[i]["urlToImage"] != undefined)
+      imgUrl = albumArticles[i]["urlToImage"]
 
     var date = getDateString(albumArticles[i]["publishedAt"]);
 
     console.log(date)
 
     x.innerHTML += `<div class="card" id="${news_card_id}">
-            <img class="card-img-top" src="${albumArticles[i]["urlToImage"]}" alt="Card image">
+            <img class="card-img-top" src="${imgUrl}" alt="Card image">
             <div class="card-header">
-              Source : ${albumArticles[i]["source"]}
+              <a href="#" onclick = "openArticleSource('${albumArticles[i]['url']}')">Source : ${albumArticles[i]["source"]}</a>
               <span style="float:right;">Published At : ${date } </span>
             </div>
             <div class="card-body">
