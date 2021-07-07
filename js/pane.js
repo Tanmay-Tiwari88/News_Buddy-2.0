@@ -8,8 +8,7 @@ const {
 const db = require("../js/db");
 const mongoose = require("mongoose")
 
-function openArticleSource(url)
-{
+function openArticleSource(url) {
   var Source = new BrowserWindow();
   Source.loadURL(url);
 }
@@ -77,7 +76,7 @@ function getDateString(dateString) {
 
 //Function to make a api call all get artilce and load it on main page
 async function loadCategotry(endPoint = '', category = '', country = '', keyword = '', dateFrom = '', dateTo = '', sortBy = '', source = '', lang = 'en') {
-  
+
   var tp = await fetchApiResult(endPoint, category, country, keyword, dateFrom, dateTo, sortBy, source, lang).then(function (val) {
     return val;
 
@@ -97,9 +96,11 @@ async function loadCategotry(endPoint = '', category = '', country = '', keyword
     var id_desc = "new-card-desc" + i;
     var rid_btn = "new-card-desc-R" + i;
     var lid_btn = "new-card-desc-L" + i;
+    var popup_id = "popup" + i;
     articles[news_card_id] = tp[i];
+
     var imgUrl = '../images/defimg.png';
-    if(tp[i]["urlToImage"] != undefined)
+    if (tp[i]["urlToImage"] != undefined)
       imgUrl = tp[i]["urlToImage"]
 
     x.innerHTML += `<div class="card" id="${news_card_id}">
@@ -116,8 +117,11 @@ async function loadCategotry(endPoint = '', category = '', country = '', keyword
               </a>
               <a href="#" class=" rl-btn" id="${lid_btn}" onclick="hideDesc('${id_desc}','${rid_btn}','${lid_btn}')" style="margin-right:5%"><i class="fa fa-arrow-up" aria-hidden="true"></i>
               </a>
-              <a href="#"  onclick="saveArticle('${news_card_id}')" style="margin-right:5%"><i class="fa fa-bookmark" aria-hidden="true"></i></a>
-              <a href="#" class="Album-btn" onclick="sendArticle('${news_card_id}')" style="margin-right:5%"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+              <div class="popup">
+              <a href="#"  onclick="saveArticle('${news_card_id}','${popup_id}')" ><i class="fa fa-bookmark" aria-hidden="true"></i></a>
+              <span class="popuptext" id="${popup_id}">Saved...</span>
+              </div>
+              <a href="#" class="Album-btn" onclick="sendArticle('${news_card_id}')" style="margin-right:5%; margin-left:5%"><i class="fa fa-plus-circle" aria-hidden="true"></i>
               </a>
             </div>
           `
@@ -154,7 +158,7 @@ async function loadAlbum(AlbumName) {
 
     var imgUrl = '../images/defimg.png';
 
-    if( albumArticles[i]["urlToImage"] != undefined)
+    if (albumArticles[i]["urlToImage"] != undefined)
       imgUrl = albumArticles[i]["urlToImage"]
 
     var date = getDateString(albumArticles[i]["publishedAt"]);
@@ -169,7 +173,9 @@ async function loadAlbum(AlbumName) {
             </div>
             <div class="card-body">
               <h5 class="card-title"><b>${albumArticles[i]["title"]} </b></h5>
+
               <p class="desc" id='${id_desc}'>${albumArticles[i]['description']}</p>
+
               <a href="#"  id="${rid_btn}" onclick="showDesc('${id_desc}','${rid_btn}','${lid_btn}')" style="margin-right:5%; margin-left:5%" ><i class="fa fa-arrow-down" aria-hidden="true"></i>
               </a>
               <a href="#" class=" rl-btn" id="${lid_btn}" onclick="hideDesc('${id_desc}','${rid_btn}','${lid_btn}')" style="margin-right:5%"><i class="fa fa-arrow-up" aria-hidden="true"></i>
@@ -228,19 +234,26 @@ function launchFilterWin() {
 }
 
 ipcRenderer.on("sending filter para", (event, paras) => {
-  
+
   loadCategotry(paras['endPoint'], paras["category"], paras["country"], curkw, paras["dateFrom"], paras["dateTo"], paras["sort-by"], paras["source"], paras["language"]);
 
 })
 
 
 //function to save Article to savedArtice collection in database
-function saveArticle(id) {
+async function saveArticle(id, popup_id) {
 
 
-  var save = db.CreatDocument("savedArticle", articles[id]["url"], 
-        articles[id]["title"], articles[id]["source"]["name"], articles[id]["description"], articles[id]["publishedAt"],articles[id]["urlToImage"]);
-  
+  var save =await db.CreatDocument("savedArticle", articles[id]["url"],
+    articles[id]["title"], articles[id]["source"]["name"], articles[id]["description"], articles[id]["publishedAt"], articles[id]["urlToImage"]);
+  console.log(save);
+  if(save == 1)
+    myFunction(popup_id);
+
+    
+
+
+
 
 
 }
@@ -258,10 +271,20 @@ async function deleteArticle(AlbumName, url) {
   loadAlbum(AlbumName);
 }
 
-function changeTabs(id)
-{
-    document.getElementById(curActivetab).style.color ='#FAF3F3';
-    curActivetab = id;
-    document.getElementById(curActivetab).style.color ='#34656D';
+function changeTabs(id) {
+  document.getElementById(curActivetab).style.color = '#FAF3F3';
+  curActivetab = id;
+  document.getElementById(curActivetab).style.color = '#34656D';
 }
 
+function myFunction(popup_id) {
+  console.log(popup_id)
+  var popup = document.getElementById(popup_id);
+  popup.classList.toggle("show");
+
+  setTimeout(()=>{
+    var popup = document.getElementById(popup_id);
+    popup.classList.toggle("show");
+  },1000);
+  
+}
