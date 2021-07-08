@@ -19,9 +19,9 @@ const {
 
 
 let win;
-const widthx = 500;
+let width=0;
 let tray;
-let temp = -widthx;
+let temp=0;
 var loadInTimer;
 var loadoutTimer;
 var albumMenu;
@@ -33,7 +33,6 @@ var movingout = true;
 
 //recive article from pane to be saved and pass it to alum-menu
 ipcMain.on('Sending-Article', (event, tp) => {
-  albumMenu.show()
   albumMenu.webContents.send('Send-Article-menu', tp);
 
 
@@ -65,8 +64,7 @@ function movein() {
 
   win.setPosition(temp, 0);
   if (temp == 0) {
-
-    clearInterval(slidein);
+      clearInterval(slidein);
   }
 
 }
@@ -75,11 +73,12 @@ function movein() {
 
 //function than move out the pane window in electron by decreasing its x-cordinate 
 function moveout() {
+ 
   temp -= 10;
-
+ 
   win.setPosition(temp, 0);
-  if (temp <= -1 * widthx) {
-
+  if (temp <= -1 * width) {
+  
     win.hide();
     clearInterval(slideout);
 
@@ -91,14 +90,16 @@ function moveout() {
 app.on('ready', () => {
 
   var {
-    width,
     height
   } = screen.getPrimaryDisplay().workArea;
-
+  
   //main window 
+  var ration = 2.092;
+  width = height/ration;
+  temp = -1*width;
   win = new BrowserWindow({
     height: height,
-    width: 500,
+    width: width,
     frame: false,
     show: false,
     resizable: false,
@@ -114,7 +115,7 @@ app.on('ready', () => {
 
   });
   win.loadFile("./html/pane.html");
-  win.setPosition(-widthx, 0);
+  win.setPosition(-1*width, 0);
 
   // album menu window
   albumMenu = new BrowserWindow({
@@ -158,7 +159,7 @@ app.on('ready', () => {
   tray.on("click", (events, bounds) => {
 
     if (!movingin && movingout) {
-      //console.log("sliding in")
+
       win.show();
       movingin = true;
       movingout = false;
@@ -166,11 +167,12 @@ app.on('ready', () => {
       slidein = setInterval(() => movein(), 4);
 
     } else {
-      //console.log("sliding out");
+      
       clearInterval(slidein);
       movingin = false;
       movingout = true;
       slideout = setInterval(() => moveout(), 4);
+      
     }
   });
 
