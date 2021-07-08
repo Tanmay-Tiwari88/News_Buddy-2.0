@@ -19,9 +19,9 @@ const {
 
 
 let win;
-var width=0;
+let width=0;
 let tray;
-var temp=0;
+let temp=0;
 var loadInTimer;
 var loadoutTimer;
 var albumMenu;
@@ -94,10 +94,8 @@ app.on('ready', () => {
   } = screen.getPrimaryDisplay().workArea;
   
   //main window 
-  var ration = 2;
+  var ration = 2.092;
   width = height/ration;
-  width = width - (width%10);
- 
   temp = -1*width;
   win = new BrowserWindow({
     height: height,
